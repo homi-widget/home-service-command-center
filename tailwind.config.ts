@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,12 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+                // Service dashboard specific colors
+                'brand-blue': '#1a73e8',
+                'brand-blue-light': '#e8f0fe',
+                'brand-yellow': '#fbbc04',
+                'brand-yellow-light': '#fff8e1',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
