@@ -2,6 +2,8 @@
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { WeeklyCalendar } from "@/components/Calendar/WeeklyCalendar";
+import { DailyCalendar } from "@/components/Calendar/DailyCalendar";
+import { MonthlyCalendar } from "@/components/Calendar/MonthlyCalendar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -52,17 +54,13 @@ const CalendarPage = () => {
       <div className="h-[calc(100vh-12rem)]">
         <Tabs value={view} className="h-full">
           <TabsContent value="day" className="mt-0 h-full">
-            <div className="bg-muted/20 h-full rounded-md flex items-center justify-center">
-              Vue journalière à venir
-            </div>
+            <DailyCalendar />
           </TabsContent>
           <TabsContent value="week" className="mt-0 h-full">
             <WeeklyCalendar />
           </TabsContent>
           <TabsContent value="month" className="mt-0 h-full">
-            <div className="bg-muted/20 h-full rounded-md flex items-center justify-center">
-              Vue mensuelle à venir
-            </div>
+            <MonthlyCalendar />
           </TabsContent>
         </Tabs>
       </div>
