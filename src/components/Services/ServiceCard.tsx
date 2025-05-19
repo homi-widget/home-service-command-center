@@ -13,7 +13,7 @@ interface ServiceProps {
   urgency?: "high" | "medium" | "low";
 }
 
-export function ServiceCard({ title, duration, price, color = "#1a73e8", urgency = "low" }: ServiceProps) {
+export function ServiceCard({ title, duration, price, urgency = "low" }: ServiceProps) {
   const { preferences } = useUserPreferences();
   
   // Map urgency levels to colors and French labels
@@ -23,9 +23,9 @@ export function ServiceCard({ title, duration, price, color = "#1a73e8", urgency
     low: { color: "#34a853", label: "Basse" }
   };
   
-  // Get color from urgency if provided
-  const badgeColor = urgency ? urgencyMap[urgency].color : color;
-  const urgencyLabel = urgency ? urgencyMap[urgency].label : "";
+  // Get color and label from urgency
+  const badgeColor = urgencyMap[urgency].color;
+  const urgencyLabel = urgencyMap[urgency].label;
 
   // Format price with currency - ensure currency is always defined
   const formattedPrice = new Intl.NumberFormat(preferences.locale || 'fr-FR', {
@@ -50,14 +50,10 @@ export function ServiceCard({ title, duration, price, color = "#1a73e8", urgency
       
       <CardContent>
         <div className="flex justify-between items-center">
+          <span className="font-medium">{formattedPrice}</span>
           <Badge style={{ backgroundColor: badgeColor }} variant="secondary">
-            {formattedPrice}
+            Urgence: {urgencyLabel}
           </Badge>
-          {urgency && (
-            <Badge variant="outline">
-              Urgence: {urgencyMap[urgency].label}
-            </Badge>
-          )}
         </div>
       </CardContent>
       

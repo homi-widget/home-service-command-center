@@ -31,6 +31,19 @@ const ServicesPage = () => {
     ]
   };
 
+  // All services combined
+  const allServices = [
+    ...serviceCategories.consultation, 
+    ...serviceCategories.standard, 
+    ...serviceCategories.emergency, 
+    ...serviceCategories.maintenance
+  ];
+
+  // Filter services by urgency level
+  const highUrgencyServices = allServices.filter(service => service.urgency === "high");
+  const mediumUrgencyServices = allServices.filter(service => service.urgency === "medium");
+  const lowUrgencyServices = allServices.filter(service => service.urgency === "low");
+
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
@@ -128,14 +141,13 @@ const ServicesPage = () => {
       <Tabs defaultValue="all">
         <TabsList>
           <TabsTrigger value="all">Tous les Services</TabsTrigger>
-          <TabsTrigger value="consultation">Consultation</TabsTrigger>
-          <TabsTrigger value="standard">Standard</TabsTrigger>
-          <TabsTrigger value="emergency">Urgence</TabsTrigger>
-          <TabsTrigger value="maintenance">Maintenance</TabsTrigger>
+          <TabsTrigger value="high">Urgence Haute</TabsTrigger>
+          <TabsTrigger value="medium">Urgence Moyenne</TabsTrigger>
+          <TabsTrigger value="low">Urgence Basse</TabsTrigger>
         </TabsList>
         <TabsContent value="all" className="mt-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {[...serviceCategories.consultation, ...serviceCategories.standard, ...serviceCategories.emergency, ...serviceCategories.maintenance].map((service, index) => (
+            {allServices.map((service, index) => (
               <ServiceCard
                 key={index}
                 title={service.title}
@@ -146,9 +158,9 @@ const ServicesPage = () => {
             ))}
           </div>
         </TabsContent>
-        <TabsContent value="consultation" className="mt-6">
+        <TabsContent value="high" className="mt-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {serviceCategories.consultation.map((service, index) => (
+            {highUrgencyServices.map((service, index) => (
               <ServiceCard
                 key={index}
                 title={service.title}
@@ -159,9 +171,9 @@ const ServicesPage = () => {
             ))}
           </div>
         </TabsContent>
-        <TabsContent value="standard" className="mt-6">
+        <TabsContent value="medium" className="mt-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {serviceCategories.standard.map((service, index) => (
+            {mediumUrgencyServices.map((service, index) => (
               <ServiceCard
                 key={index}
                 title={service.title}
@@ -172,22 +184,9 @@ const ServicesPage = () => {
             ))}
           </div>
         </TabsContent>
-        <TabsContent value="emergency" className="mt-6">
+        <TabsContent value="low" className="mt-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {serviceCategories.emergency.map((service, index) => (
-              <ServiceCard
-                key={index}
-                title={service.title}
-                duration={service.duration}
-                price={service.price}
-                urgency={service.urgency}
-              />
-            ))}
-          </div>
-        </TabsContent>
-        <TabsContent value="maintenance" className="mt-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {serviceCategories.maintenance.map((service, index) => (
+            {lowUrgencyServices.map((service, index) => (
               <ServiceCard
                 key={index}
                 title={service.title}
