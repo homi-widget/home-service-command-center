@@ -13,49 +13,52 @@ const TeamPage = () => {
       name: 'Mike Richards',
       email: 'mike.richards@example.com',
       phone: '(555) 123-4567',
-      role: 'Senior Technician',
+      role: 'Technicien Senior',
+      startAddress: '123 Rue de la Paix, Paris',
     },
     {
       name: 'Sarah Johnson',
       email: 'sarah.johnson@example.com',
       phone: '(555) 987-6543',
-      role: 'Technician',
+      role: 'Technicien',
+      startAddress: '45 Avenue Victor Hugo, Lyon',
     },
     {
       name: 'Alex Williams',
       email: 'alex.williams@example.com',
       phone: '(555) 456-7890',
-      role: 'Junior Technician',
+      role: 'Technicien Junior',
+      startAddress: '8 Rue du Commerce, Marseille',
     }
   ];
 
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Team</h1>
+        <h1 className="text-3xl font-bold">Équipe</h1>
         
         <Dialog>
           <DialogTrigger asChild>
             <Button>
               <Plus className="w-4 h-4 mr-2" />
-              Add Team Member
+              Ajouter un membre
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Add Team Member</DialogTitle>
+              <DialogTitle>Ajouter un membre à l'équipe</DialogTitle>
               <DialogDescription>
-                Add a new member to your team. They will receive an invitation email.
+                Ajoutez un nouveau membre à votre équipe. Il recevra un email d'invitation.
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="name" className="text-right">
-                  Name
+                  Nom
                 </Label>
                 <Input
                   id="name"
-                  placeholder="Full name"
+                  placeholder="Nom complet"
                   className="col-span-3"
                 />
               </div>
@@ -66,27 +69,37 @@ const TeamPage = () => {
                 <Input
                   id="email"
                   type="email"
-                  placeholder="Email address"
+                  placeholder="Adresse email"
                   className="col-span-3"
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="phone" className="text-right">
-                  Phone
+                  Téléphone
                 </Label>
                 <Input
                   id="phone"
-                  placeholder="Phone number"
+                  placeholder="Numéro de téléphone"
                   className="col-span-3"
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="role" className="text-right">
-                  Role
+                  Rôle
                 </Label>
                 <Input
                   id="role"
-                  placeholder="Job title or role"
+                  placeholder="Titre ou rôle"
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="startAddress" className="text-right">
+                  Adresse de départ
+                </Label>
+                <Input
+                  id="startAddress"
+                  placeholder="Adresse de début de journée"
                   className="col-span-3"
                 />
               </div>
@@ -97,13 +110,13 @@ const TeamPage = () => {
                 <div className="col-span-3">
                   <Button variant="outline" className="w-full">
                     <Upload className="w-4 h-4 mr-2" />
-                    Upload Photo
+                    Télécharger une photo
                   </Button>
                 </div>
               </div>
             </div>
             <DialogFooter>
-              <Button type="submit">Add Member</Button>
+              <Button type="submit">Ajouter le membre</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>

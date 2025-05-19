@@ -25,23 +25,24 @@ import {
 } from "@/components/ui/sidebar";
 
 export function AppSidebar() {
-  const { collapsed } = useSidebar();
+  const sidebar = useSidebar();
   const location = useLocation();
   const currentPath = location.pathname;
+  const collapsed = sidebar?.collapsed || false;
 
   // Navigation items
   const mainItems = [
-    { title: "Dashboard", url: "/", icon: Home },
-    { title: "Calendar", url: "/calendar", icon: Calendar },
-    { title: "Team", url: "/team", icon: Users },
+    { title: "Tableau de bord", url: "/", icon: Home },
+    { title: "Calendrier", url: "/calendar", icon: Calendar },
+    { title: "Équipe", url: "/team", icon: Users },
     { title: "Clients", url: "/clients", icon: User },
     { title: "Services", url: "/services", icon: FileText },
   ];
   
   const managementItems = [
-    { title: "Working Hours", url: "/working-hours", icon: Clock },
-    { title: "Payments", url: "/payments", icon: CreditCard },
-    { title: "Settings", url: "/settings", icon: Settings },
+    { title: "Heures de travail", url: "/working-hours", icon: Clock },
+    { title: "Paiements", url: "/payments", icon: CreditCard },
+    { title: "Paramètres", url: "/settings", icon: Settings },
   ];
 
   /* helpers */
@@ -67,12 +68,9 @@ export function AppSidebar() {
 
       <SidebarContent>
         {/* Main navigation group */}
-        <SidebarGroup
-          open={isMainExpanded}
-          defaultOpen={true}
-        >
+        <SidebarGroup defaultOpen={isMainExpanded}>
           <SidebarGroupLabel className="text-sidebar-foreground/70">
-            Main
+            Principal
           </SidebarGroupLabel>
 
           <SidebarGroupContent>
@@ -92,12 +90,9 @@ export function AppSidebar() {
         </SidebarGroup>
         
         {/* Management navigation group */}
-        <SidebarGroup
-          open={isManagementExpanded}
-          defaultOpen={false}
-        >
+        <SidebarGroup defaultOpen={isManagementExpanded}>
           <SidebarGroupLabel className="text-sidebar-foreground/70">
-            Management
+            Gestion
           </SidebarGroupLabel>
 
           <SidebarGroupContent>

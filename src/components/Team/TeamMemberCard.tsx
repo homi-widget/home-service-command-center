@@ -1,17 +1,18 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Calendar, Mail, Phone } from "lucide-react";
+import { Calendar, Mail, Phone, MapPin } from "lucide-react";
 
 interface TeamMemberProps {
   name: string;
   email: string;
   phone: string;
   role: string;
+  startAddress?: string;
   avatarUrl?: string;
 }
 
-export function TeamMemberCard({ name, email, phone, role, avatarUrl }: TeamMemberProps) {
+export function TeamMemberCard({ name, email, phone, role, startAddress, avatarUrl }: TeamMemberProps) {
   // Get initials from name
   const initials = name.split(' ').map(n => n[0]).join('');
   
@@ -25,16 +26,21 @@ export function TeamMemberCard({ name, email, phone, role, avatarUrl }: TeamMemb
       <div className="flex-1">
         <h3 className="font-medium">{name}</h3>
         <p className="text-sm text-muted-foreground">{role}</p>
+        {startAddress && (
+          <p className="text-xs text-muted-foreground flex items-center mt-1">
+            <MapPin className="h-3 w-3 mr-1" /> {startAddress}
+          </p>
+        )}
       </div>
       
       <div className="flex gap-2">
-        <Button variant="ghost" size="icon" className="h-8 w-8" title="Send email">
+        <Button variant="ghost" size="icon" className="h-8 w-8" title="Envoyer un email">
           <Mail className="h-4 w-4" />
         </Button>
-        <Button variant="ghost" size="icon" className="h-8 w-8" title="Call">
+        <Button variant="ghost" size="icon" className="h-8 w-8" title="Appeler">
           <Phone className="h-4 w-4" />
         </Button>
-        <Button variant="ghost" size="icon" className="h-8 w-8" title="View calendar">
+        <Button variant="ghost" size="icon" className="h-8 w-8" title="Voir le calendrier">
           <Calendar className="h-4 w-4" />
         </Button>
       </div>

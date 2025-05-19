@@ -1,12 +1,12 @@
 
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { TopNav } from "@/components/ui/TopNav";
 import { Outlet } from "react-router-dom";
 
 export default function DashboardLayout() {
   return (
-    <SidebarProvider collapsedWidth={56}>
+    <SidebarProvider>
       <div className="min-h-screen w-full">
         <div className="flex h-screen w-full">
           <AppSidebar />
