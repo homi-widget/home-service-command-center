@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
@@ -15,18 +16,13 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 export function AppSidebar() {
   const sidebar = useSidebar();
@@ -53,57 +49,9 @@ export function AppSidebar() {
   const isActive = (path: string) => currentPath === path;
   const isMainExpanded = mainItems.some((i) => isActive(i.url));
   const isManagementExpanded = managementItems.some((i) => isActive(i.url));
-  
-  // Updated navigation class helper with yellow highlighting
   const getNavCls = ({ isActive }: { isActive: boolean }) =>
-    isActive 
-      ? "bg-brand-yellow text-primary-foreground font-medium transition-all" 
-      : "hover:bg-sidebar-accent/50 hover:text-primary-foreground transition-all";
-
-  // New helper for icon styling with yellow for active items
-  const getIconCls = (isItemActive: boolean) => 
-    isItemActive
-      ? "mr-2 h-5 w-5 text-primary-foreground"
-      : "mr-2 h-5 w-5";
-
-  // Helper function to render menu items with tooltips
-  const renderMenuItem = (item: { title: string, url: string, icon: any }) => {
-    const isItemActive = isActive(item.url);
-    
-    const linkContent = (
-      <NavLink to={item.url} end className={getNavCls}>
-        <item.icon className={getIconCls(isItemActive)} />
-        <span>{collapsed ? "" : item.title}</span>
-      </NavLink>
-    );
-    
-    // If sidebar is collapsed, wrap menu button in tooltip
-    if (collapsed) {
-      return (
-        <SidebarMenuItem key={item.title}>
-          <SidebarMenuButton asChild>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                {linkContent}
-              </TooltipTrigger>
-              <TooltipContent side="right">
-                {item.title}
-              </TooltipContent>
-            </Tooltip>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-      );
-    }
-    
-    // Otherwise render without tooltip
-    return (
-      <SidebarMenuItem key={item.title}>
-        <SidebarMenuButton asChild>
-          {linkContent}
-        </SidebarMenuButton>
-      </SidebarMenuItem>
-    );
-  };
+    isActive ? "bg-sidebar-accent text-primary-foreground font-medium" : 
+    "hover:bg-sidebar-accent/50 hover:text-primary-foreground transition-all";
 
   return (
     <Sidebar
@@ -123,9 +71,16 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              <TooltipProvider>
-                {mainItems.map(renderMenuItem)}
-              </TooltipProvider>
+              {mainItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink to={item.url} end className={getNavCls}>
+                      <item.icon className="mr-2 h-5 w-5" />
+                      <span>{collapsed ? "" : item.title}</span>
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -134,9 +89,16 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              <TooltipProvider>
-                {managementItems.map(renderMenuItem)}
-              </TooltipProvider>
+              {managementItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink to={item.url} end className={getNavCls}>
+                      <item.icon className="mr-2 h-5 w-5" />
+                      <span>{collapsed ? "" : item.title}</span>
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
