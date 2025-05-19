@@ -16,7 +16,6 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -49,9 +48,18 @@ export function AppSidebar() {
   const isActive = (path: string) => currentPath === path;
   const isMainExpanded = mainItems.some((i) => isActive(i.url));
   const isManagementExpanded = managementItems.some((i) => isActive(i.url));
+  
+  // Updated navigation class helper with better highlighting
   const getNavCls = ({ isActive }: { isActive: boolean }) =>
-    isActive ? "bg-sidebar-accent text-primary-foreground font-medium" : 
-    "hover:bg-sidebar-accent/50 hover:text-primary-foreground transition-all";
+    isActive 
+      ? "bg-primary text-primary-foreground font-medium transition-all" 
+      : "hover:bg-sidebar-accent/50 hover:text-primary-foreground transition-all";
+
+  // New helper for icon styling
+  const getIconCls = (isItemActive: boolean) => 
+    isItemActive
+      ? "mr-2 h-5 w-5 text-primary-foreground"
+      : "mr-2 h-5 w-5";
 
   return (
     <Sidebar
@@ -71,16 +79,19 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {mainItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <NavLink to={item.url} end className={getNavCls}>
-                      <item.icon className="mr-2 h-5 w-5" />
-                      <span>{collapsed ? "" : item.title}</span>
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {mainItems.map((item) => {
+                const isItemActive = isActive(item.url);
+                return (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <NavLink to={item.url} end className={getNavCls}>
+                        <item.icon className={getIconCls(isItemActive)} />
+                        <span>{collapsed ? "" : item.title}</span>
+                      </NavLink>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -89,16 +100,19 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {managementItems.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <NavLink to={item.url} end className={getNavCls}>
-                      <item.icon className="mr-2 h-5 w-5" />
-                      <span>{collapsed ? "" : item.title}</span>
-                    </NavLink>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {managementItems.map((item) => {
+                const isItemActive = isActive(item.url);
+                return (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <NavLink to={item.url} end className={getNavCls}>
+                        <item.icon className={getIconCls(isItemActive)} />
+                        <span>{collapsed ? "" : item.title}</span>
+                      </NavLink>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
