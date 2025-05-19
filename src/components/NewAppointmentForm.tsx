@@ -8,13 +8,21 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import { fr } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
+import { useUserPreferences } from "@/context/UserPreferencesContext";
 
-const timeSlots = [
-  "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
-  "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM",
-  "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM", "5:00 PM"
-];
+const generateTimeSlots = (use24Hour: boolean) => {
+  const slots = [];
+  for (let hour = 9; hour <= 17; hour++) {
+    for (let minute of [0, 30]) {
+      const hourValue = use24Hour ? hour : (hour % 12) || 12;
+      const amPm = use24Hour ? "" : (hour >= 12 ? " PM" : " AM");
+      slots.push(`${hourValue}:${minute === 0 ? '00' : minute}${amPm}`);
+    }
+  }
+  return slots;
+};
 
 export function NewAppointmentForm() {
   const [date, setDate] = useState<Date>();
@@ -22,11 +30,14 @@ export function NewAppointmentForm() {
   const [service, setService] = useState("");
   const [assignedTo, setAssignedTo] = useState("");
   const [timeSlot, setTimeSlot] = useState("");
+  const { preferences } = useUserPreferences();
+  
+  const timeSlots = generateTimeSlots(preferences.timeFormat === "24h");
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Here you would handle the form submission, connecting to a backend API
-    alert(`Appointment created for ${clientName} on ${date ? format(date, 'PP') : ''} at ${timeSlot}`);
+    alert(`Rendez-vous créé pour ${clientName} le ${date ? format(date, 'PP', { locale: fr }) : ''} à ${timeSlot}`);
   };
   
   return (
@@ -36,13 +47,13 @@ export function NewAppointmentForm() {
           <Label htmlFor="client">Client</Label>
           <Select value={clientName} onValueChange={setClientName}>
             <SelectTrigger id="client">
-              <SelectValue placeholder="Select client" />
+              <SelectValue placeholder="Sélectionner un client" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="john-doe">John Doe</SelectItem>
-              <SelectItem value="jane-smith">Jane Smith</SelectItem>
-              <SelectItem value="robert-johnson">Robert Johnson</SelectItem>
-              <SelectItem value="new">+ Add New Client</SelectItem>
+              <SelectItem value="john-doe">Jean Dupont</SelectItem>
+              <SelectItem value="jane-smith">Marie Durand</SelectItem>
+              <SelectItem value="robert-johnson">Robert Martin</SelectItem>
+              <SelectItem value="new">+ Ajouter un nouveau client</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -51,21 +62,21 @@ export function NewAppointmentForm() {
           <Label htmlFor="service">Service</Label>
           <Select value={service} onValueChange={setService}>
             <SelectTrigger id="service">
-              <SelectValue placeholder="Select service" />
+              <SelectValue placeholder="Sélectionner un service" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="15min">15 Minutes Consultation</SelectItem>
-              <SelectItem value="30min">30 Minutes Service</SelectItem>
-              <SelectItem value="1hour">1 Hour Service</SelectItem>
+              <SelectItem value="15min">Consultation de 15 minutes</SelectItem>
+              <SelectItem value="30min">Service de 30 minutes</SelectItem>
+              <SelectItem value="1hour">Service d'une heure</SelectItem>
             </SelectContent>
           </Select>
         </div>
         
         <div className="grid gap-2">
-          <Label htmlFor="team-member">Assign to</Label>
+          <Label htmlFor="team-member">Assigné à</Label>
           <Select value={assignedTo} onValueChange={setAssignedTo}>
             <SelectTrigger id="team-member">
-              <SelectValue placeholder="Select team member" />
+              <SelectValue placeholder="Sélectionner un membre de l'équipe" />
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="mike">Mike Richards</SelectItem>
@@ -87,7 +98,7 @@ export function NewAppointmentForm() {
                 )}
               >
                 <CalendarIcon className="mr-2 h-4 w-4" />
-                {date ? format(date, "PPP") : <span>Pick a date</span>}
+                {date ? format(date, "PPP", { locale: fr }) : <span>Choisir une date</span>}
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align="start">
@@ -103,10 +114,10 @@ export function NewAppointmentForm() {
         </div>
         
         <div className="grid gap-2">
-          <Label htmlFor="time">Time</Label>
+          <Label htmlFor="time">Heure</Label>
           <Select value={timeSlot} onValueChange={setTimeSlot}>
             <SelectTrigger id="time">
-              <SelectValue placeholder="Select time slot" />
+              <SelectValue placeholder="Sélectionner une heure" />
             </SelectTrigger>
             <SelectContent>
               {timeSlots.map((time) => (
@@ -120,11 +131,11 @@ export function NewAppointmentForm() {
         
         <div className="grid gap-2">
           <Label htmlFor="notes">Notes</Label>
-          <Input id="notes" placeholder="Add notes about this appointment" />
+          <Input id="notes" placeholder="Ajouter des notes sur ce rendez-vous" />
         </div>
       </div>
       
-      <Button type="submit" className="w-full">Create Appointment</Button>
+      <Button type="submit" className="w-full">Créer un Rendez-vous</Button>
     </form>
   );
 }

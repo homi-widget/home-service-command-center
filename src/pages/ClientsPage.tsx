@@ -13,40 +13,40 @@ const ClientsPage = () => {
   // Sample clients data
   const clients = [
     {
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      phone: '(555) 123-4567',
-      address: '123 Main St, Springfield',
+      name: 'Jean Dupont',
+      email: 'jean.dupont@exemple.com',
+      phone: '06 12 34 56 78',
+      address: '123 Rue Principale, Paris',
     },
     {
-      name: 'Jane Smith',
-      email: 'jane.smith@example.com',
-      phone: '(555) 987-6543',
-      address: '456 Oak Ave, Springfield',
+      name: 'Marie Durand',
+      email: 'marie.durand@exemple.com',
+      phone: '06 98 76 54 32',
+      address: '456 Avenue des Champs, Paris',
     },
     {
-      name: 'Robert Johnson',
-      email: 'robert.johnson@example.com',
-      phone: '(555) 456-7890',
-      address: '789 Elm St, Springfield',
+      name: 'Robert Martin',
+      email: 'robert.martin@exemple.com',
+      phone: '06 45 67 89 01',
+      address: '789 Rue de la Seine, Paris',
     },
     {
-      name: 'Emily Wilson',
-      email: 'emily.wilson@example.com',
-      phone: '(555) 567-8901',
-      address: '101 Pine Rd, Springfield',
+      name: 'Émilie Wilson',
+      email: 'emilie.wilson@exemple.com',
+      phone: '06 56 78 90 12',
+      address: '101 Boulevard St-Michel, Paris',
     },
     {
-      name: 'Michael Brown',
-      email: 'michael.brown@example.com',
-      phone: '(555) 234-5678',
-      address: '202 Cedar Ln, Springfield',
+      name: 'Michel Brun',
+      email: 'michel.brun@exemple.com',
+      phone: '06 23 45 67 89',
+      address: '202 Rue du Cèdre, Paris',
     },
     {
-      name: 'Sarah Davis',
-      email: 'sarah.davis@example.com',
-      phone: '(555) 345-6789',
-      address: '303 Maple Dr, Springfield',
+      name: 'Sophie Dubois',
+      email: 'sophie.dubois@exemple.com',
+      phone: '06 34 56 78 90',
+      address: '303 Avenue des Érables, Paris',
     },
   ];
   
@@ -68,7 +68,7 @@ const ClientsPage = () => {
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input 
               type="search" 
-              placeholder="Search clients..." 
+              placeholder="Rechercher des clients..." 
               className="pl-9"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -79,24 +79,24 @@ const ClientsPage = () => {
             <DialogTrigger asChild>
               <Button>
                 <Plus className="w-4 h-4 mr-2" />
-                Add Client
+                Ajouter Client
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
-                <DialogTitle>Add Client</DialogTitle>
+                <DialogTitle>Ajouter un Client</DialogTitle>
                 <DialogDescription>
-                  Enter the details for your new client.
+                  Entrez les détails du nouveau client.
                 </DialogDescription>
               </DialogHeader>
               <div className="grid gap-4 py-4">
                 <div className="grid grid-cols-4 items-center gap-4">
                   <Label htmlFor="name" className="text-right">
-                    Name
+                    Nom
                   </Label>
                   <Input
                     id="name"
-                    placeholder="Full name"
+                    placeholder="Nom complet"
                     className="col-span-3"
                   />
                 </div>
@@ -107,33 +107,33 @@ const ClientsPage = () => {
                   <Input
                     id="email"
                     type="email"
-                    placeholder="Email address"
+                    placeholder="Adresse email"
                     className="col-span-3"
                   />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
                   <Label htmlFor="phone" className="text-right">
-                    Phone
+                    Téléphone
                   </Label>
                   <Input
                     id="phone"
-                    placeholder="Phone number"
+                    placeholder="Numéro de téléphone"
                     className="col-span-3"
                   />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
                   <Label htmlFor="address" className="text-right">
-                    Address
+                    Adresse
                   </Label>
                   <Input
                     id="address"
-                    placeholder="Full address"
+                    placeholder="Adresse complète"
                     className="col-span-3"
                   />
                 </div>
               </div>
               <DialogFooter>
-                <Button type="submit">Add Client</Button>
+                <Button type="submit">Ajouter Client</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -142,8 +142,8 @@ const ClientsPage = () => {
       
       {filteredClients.length === 0 ? (
         <div className="text-center py-20">
-          <h3 className="text-xl font-medium">No clients found</h3>
-          <p className="text-muted-foreground">Try adjusting your search terms</p>
+          <h3 className="text-xl font-medium">Aucun client trouvé</h3>
+          <p className="text-muted-foreground">Essayez d'ajuster vos termes de recherche</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

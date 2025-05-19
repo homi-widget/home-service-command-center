@@ -20,15 +20,15 @@ const CalendarPage = () => {
   return (
     <div className="p-6">
       <div className="flex flex-col md:flex-row justify-between md:items-center mb-6 gap-4">
-        <h1 className="text-3xl font-bold">Calendar</h1>
+        <h1 className="text-3xl font-bold">Calendrier</h1>
         
         <div className="flex flex-wrap gap-4">
           <Select value={teamMember} onValueChange={handleChangeTeamMember}>
             <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Select team member" />
+              <SelectValue placeholder="Sélectionner membre" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Team Members</SelectItem>
+              <SelectItem value="all">Tous les membres</SelectItem>
               <SelectItem value="mike">Mike Richards</SelectItem>
               <SelectItem value="sarah">Sarah Johnson</SelectItem>
               <SelectItem value="alex">Alex Williams</SelectItem>
@@ -37,14 +37,14 @@ const CalendarPage = () => {
           
           <Tabs value={view} onValueChange={handleChangeView} className="w-fit">
             <TabsList>
-              <TabsTrigger value="day">Day</TabsTrigger>
-              <TabsTrigger value="week">Week</TabsTrigger>
-              <TabsTrigger value="month">Month</TabsTrigger>
+              <TabsTrigger value="day">Jour</TabsTrigger>
+              <TabsTrigger value="week">Semaine</TabsTrigger>
+              <TabsTrigger value="month">Mois</TabsTrigger>
             </TabsList>
           </Tabs>
           
           <Button className="ml-auto">
-            Today
+            Aujourd'hui
           </Button>
         </div>
       </div>
@@ -53,7 +53,7 @@ const CalendarPage = () => {
         <Tabs value={view} className="h-full">
           <TabsContent value="day" className="mt-0 h-full">
             <div className="bg-muted/20 h-full rounded-md flex items-center justify-center">
-              Day view coming soon
+              Vue journalière à venir
             </div>
           </TabsContent>
           <TabsContent value="week" className="mt-0 h-full">
@@ -61,7 +61,7 @@ const CalendarPage = () => {
           </TabsContent>
           <TabsContent value="month" className="mt-0 h-full">
             <div className="bg-muted/20 h-full rounded-md flex items-center justify-center">
-              Month view coming soon
+              Vue mensuelle à venir
             </div>
           </TabsContent>
         </Tabs>

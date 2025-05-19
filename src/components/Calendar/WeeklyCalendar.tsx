@@ -1,15 +1,18 @@
 
 import { useState } from 'react';
 import { format, addDays, startOfWeek, isSameDay } from 'date-fns';
+import { fr } from 'date-fns/locale';
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { DateTimeDisplay } from "@/components/DateTimeDisplay";
+import { useUserPreferences } from "@/context/UserPreferencesContext";
 
 // Sample data - in a real app, this would come from an API
 const events = [
   {
     id: 1,
-    title: 'Plumbing Service',
-    client: 'John Doe',
+    title: 'Service de Plomberie',
+    client: 'Jean Dupont',
     start: new Date(2025, 4, 18, 10, 0),
     end: new Date(2025, 4, 18, 11, 30),
     teamMember: 'Mike Richards',
@@ -18,7 +21,7 @@ const events = [
   {
     id: 2,
     title: 'Consultation',
-    client: 'Jane Smith',
+    client: 'Marie Durand',
     start: new Date(2025, 4, 19, 14, 0),
     end: new Date(2025, 4, 19, 14, 30),
     teamMember: 'Sarah Johnson',
@@ -26,8 +29,8 @@ const events = [
   },
   {
     id: 3,
-    title: 'Equipment Maintenance',
-    client: 'Robert Johnson',
+    title: 'Maintenance Équipement',
+    client: 'Robert Martin',
     start: new Date(2025, 4, 20, 13, 0),
     end: new Date(2025, 4, 20, 15, 0),
     teamMember: 'Alex Williams',
@@ -40,6 +43,7 @@ const timeSlots = Array.from({ length: 9 }).map((_, i) => i + 9); // 9 AM to 5 P
 export function WeeklyCalendar() {
   const [currentDate, setCurrentDate] = useState(new Date(2025, 4, 18)); // May 18, 2025
   const startDate = startOfWeek(currentDate, { weekStartsOn: 1 }); // Start from Monday
+  const { preferences } = useUserPreferences();
   
   // Generate the days of the week
   const days = Array.from({ length: 7 }).map((_, i) => {
@@ -62,7 +66,7 @@ export function WeeklyCalendar() {
     <div className="flex flex-col h-full">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-semibold">
-          {format(startDate, "MMMM yyyy")}
+          {format(startDate, "MMMM yyyy", { locale: fr })}
         </h2>
         <div className="flex gap-2">
           <Button variant="outline" size="icon" onClick={handlePrevWeek}>
@@ -78,11 +82,13 @@ export function WeeklyCalendar() {
         {/* Time labels column */}
         <div className="border-r">
           <div className="h-12 border-b flex items-center justify-center font-medium">
-            Time
+            Heure
           </div>
           {timeSlots.map((time) => (
             <div key={time} className="h-20 border-b flex items-center justify-center text-sm text-muted-foreground">
-              {time % 12 || 12} {time >= 12 ? 'PM' : 'AM'}
+              {preferences.timeFormat === '24h' 
+                ? `${time}:00` 
+                : `${time % 12 || 12} ${time >= 12 ? 'PM' : 'AM'}`}
             </div>
           ))}
         </div>
@@ -91,8 +97,8 @@ export function WeeklyCalendar() {
         {days.map((day) => (
           <div key={day.toString()} className="border-r last:border-r-0">
             <div className="h-12 border-b flex flex-col items-center justify-center">
-              <div className="font-medium">{format(day, "EEE")}</div>
-              <div className="text-sm text-muted-foreground">{format(day, "d")}</div>
+              <div className="font-medium">{format(day, "EEE", { locale: fr })}</div>
+              <div className="text-sm text-muted-foreground">{format(day, "d", { locale: fr })}</div>
             </div>
             
             {/* Time slots */}

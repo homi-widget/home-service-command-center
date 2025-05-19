@@ -10,21 +10,21 @@ const PaymentsPage = () => {
   // Sample payments data
   const transactions = [
     {
-      client: "John Doe",
+      client: "Jean Dupont",
       service: "Service de Plomberie",
       date: "2025-05-17T10:30:00",
       amount: 180.00,
       status: "Payé"
     },
     {
-      client: "Sarah Johnson",
+      client: "Sophie Durand",
       service: "Consultation Initiale",
       date: "2025-05-16T14:15:00",
       amount: 75.00,
       status: "Payé"
     },
     {
-      client: "Robert Davis",
+      client: "Robert Martin",
       service: "Service de Maintenance",
       date: "2025-05-15T09:00:00",
       amount: 220.00,
@@ -38,7 +38,7 @@ const PaymentsPage = () => {
       status: "En Attente"
     },
     {
-      client: "Michael Brown",
+      client: "Michel Brun",
       service: "Inspection Régulière",
       date: "2025-05-13T11:30:00",
       amount: 120.00,
@@ -173,18 +173,18 @@ const PaymentsPage = () => {
         <TabsContent value="payment-methods" className="mt-6">
           <Card>
             <CardHeader>
-              <CardTitle>Payment Methods</CardTitle>
-              <CardDescription>Configure how you accept payments</CardDescription>
+              <CardTitle>Moyens de Paiement</CardTitle>
+              <CardDescription>Configurer comment vous acceptez les paiements</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="border rounded-lg p-4 bg-brand-blue/5 border-brand-blue">
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h3 className="font-medium">Credit Card</h3>
-                      <p className="text-sm text-muted-foreground">Accept payments via Stripe</p>
+                      <h3 className="font-medium">Carte de Crédit</h3>
+                      <p className="text-sm text-muted-foreground">Accepter les paiements via Stripe</p>
                     </div>
-                    <div className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Active</div>
+                    <div className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Actif</div>
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex gap-2">
@@ -192,7 +192,7 @@ const PaymentsPage = () => {
                       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mastercard/mastercard-original.svg" alt="Mastercard" className="w-8 h-6" />
                       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" alt="Amex" className="w-8 h-6" />
                     </div>
-                    <Button variant="outline" size="sm">Configure</Button>
+                    <Button variant="outline" size="sm">Configurer</Button>
                   </div>
                 </div>
                 
@@ -200,12 +200,12 @@ const PaymentsPage = () => {
                   <div className="flex items-start justify-between mb-4">
                     <div>
                       <h3 className="font-medium">PayPal</h3>
-                      <p className="text-sm text-muted-foreground">Accept payments via PayPal</p>
+                      <p className="text-sm text-muted-foreground">Accepter les paiements via PayPal</p>
                     </div>
-                    <div className="bg-muted text-muted-foreground text-xs px-2 py-1 rounded">Inactive</div>
+                    <div className="bg-muted text-muted-foreground text-xs px-2 py-1 rounded">Inactif</div>
                   </div>
                   <div className="flex justify-end">
-                    <Button size="sm">Connect</Button>
+                    <Button size="sm">Connecter</Button>
                   </div>
                 </div>
                 
@@ -213,12 +213,12 @@ const PaymentsPage = () => {
                   <div className="flex items-start justify-between mb-4">
                     <div>
                       <h3 className="font-medium">Apple Pay</h3>
-                      <p className="text-sm text-muted-foreground">Accept Apple Pay payments</p>
+                      <p className="text-sm text-muted-foreground">Accepter les paiements Apple Pay</p>
                     </div>
-                    <div className="bg-muted text-muted-foreground text-xs px-2 py-1 rounded">Inactive</div>
+                    <div className="bg-muted text-muted-foreground text-xs px-2 py-1 rounded">Inactif</div>
                   </div>
                   <div className="flex justify-end">
-                    <Button size="sm">Connect</Button>
+                    <Button size="sm">Connecter</Button>
                   </div>
                 </div>
                 
@@ -226,12 +226,12 @@ const PaymentsPage = () => {
                   <div className="flex items-start justify-between mb-4">
                     <div>
                       <h3 className="font-medium">Google Pay</h3>
-                      <p className="text-sm text-muted-foreground">Accept Google Pay payments</p>
+                      <p className="text-sm text-muted-foreground">Accepter les paiements Google Pay</p>
                     </div>
-                    <div className="bg-muted text-muted-foreground text-xs px-2 py-1 rounded">Inactive</div>
+                    <div className="bg-muted text-muted-foreground text-xs px-2 py-1 rounded">Inactif</div>
                   </div>
                   <div className="flex justify-end">
-                    <Button size="sm">Connect</Button>
+                    <Button size="sm">Connecter</Button>
                   </div>
                 </div>
               </div>
@@ -239,7 +239,7 @@ const PaymentsPage = () => {
               <div className="flex justify-center">
                 <Button variant="outline" className="gap-2">
                   <CirclePlus className="h-4 w-4" />
-                  Add Payment Method
+                  Ajouter un Moyen de Paiement
                 </Button>
               </div>
             </CardContent>
