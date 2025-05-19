@@ -103,9 +103,9 @@ export const UserPreferencesProvider: React.FC<{ children: React.ReactNode }> = 
 
   // Fonction pour formater un montant selon la devise
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat(preferences.locale, {
+    return new Intl.NumberFormat(preferences.locale || 'fr-FR', {
       style: 'currency',
-      currency: preferences.currency
+      currency: preferences.currency || 'EUR'
     }).format(amount);
   };
 

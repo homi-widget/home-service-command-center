@@ -27,10 +27,10 @@ export function ServiceCard({ title, duration, price, color = "#1a73e8", urgency
   const badgeColor = urgency ? urgencyMap[urgency].color : color;
   const urgencyLabel = urgency ? urgencyMap[urgency].label : "";
 
-  // Format price with currency
-  const formattedPrice = new Intl.NumberFormat(preferences.locale, {
+  // Format price with currency - ensure currency is always defined
+  const formattedPrice = new Intl.NumberFormat(preferences.locale || 'fr-FR', {
     style: 'currency',
-    currency: preferences.currency
+    currency: preferences.currency || 'EUR'
   }).format(price);
 
   return (
