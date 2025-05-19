@@ -11,9 +11,9 @@ const ServicesPage = () => {
   // Sample services categorized
   const serviceCategories = {
     main: [
-      { title: '15 Minutes Meeting', duration: '15 min', price: 0 },
-      { title: '30 Minutes Meeting', duration: '30 min', price: 0 },
-      { title: '1 Hour Meeting', duration: '60 min', price: 0 },
+      { title: '15 Minutes Meeting', duration: '15 min', price: 0, color: '#1a73e8' },
+      { title: '30 Minutes Meeting', duration: '30 min', price: 0, color: '#1a73e8' },
+      { title: '1 Hour Meeting', duration: '60 min', price: 0, color: '#1a73e8' },
     ],
     standard: [
       { title: 'Basic Service', duration: '60 min', price: 75, color: '#1a73e8' },

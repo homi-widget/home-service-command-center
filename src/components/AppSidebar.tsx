@@ -28,7 +28,7 @@ export function AppSidebar() {
   const sidebar = useSidebar();
   const location = useLocation();
   const currentPath = location.pathname;
-  const collapsed = sidebar?.collapsed || false;
+  const collapsed = sidebar?.state === "collapsed";
 
   // Navigation items
   const mainItems = [
@@ -56,7 +56,7 @@ export function AppSidebar() {
   return (
     <Sidebar
       className={collapsed ? "w-14 transition-all" : "w-60 transition-all"}
-      collapsible
+      collapsible="icon"
     >
       {/* Logo and fallback trigger */}
       <div className="flex items-center justify-between p-4">
@@ -68,7 +68,7 @@ export function AppSidebar() {
 
       <SidebarContent>
         {/* Main navigation group */}
-        <SidebarGroup defaultOpen={isMainExpanded}>
+        <SidebarGroup>
           <SidebarGroupLabel className="text-sidebar-foreground/70">
             Principal
           </SidebarGroupLabel>
@@ -90,7 +90,7 @@ export function AppSidebar() {
         </SidebarGroup>
         
         {/* Management navigation group */}
-        <SidebarGroup defaultOpen={isManagementExpanded}>
+        <SidebarGroup>
           <SidebarGroupLabel className="text-sidebar-foreground/70">
             Gestion
           </SidebarGroupLabel>
