@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
@@ -22,6 +21,12 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export function AppSidebar() {
   const sidebar = useSidebar();
@@ -49,17 +54,56 @@ export function AppSidebar() {
   const isMainExpanded = mainItems.some((i) => isActive(i.url));
   const isManagementExpanded = managementItems.some((i) => isActive(i.url));
   
-  // Updated navigation class helper with better highlighting
+  // Updated navigation class helper with yellow highlighting
   const getNavCls = ({ isActive }: { isActive: boolean }) =>
     isActive 
-      ? "bg-primary text-primary-foreground font-medium transition-all" 
+      ? "bg-brand-yellow text-primary-foreground font-medium transition-all" 
       : "hover:bg-sidebar-accent/50 hover:text-primary-foreground transition-all";
 
-  // New helper for icon styling
+  // New helper for icon styling with yellow for active items
   const getIconCls = (isItemActive: boolean) => 
     isItemActive
       ? "mr-2 h-5 w-5 text-primary-foreground"
       : "mr-2 h-5 w-5";
+
+  // Helper function to render menu items with tooltips
+  const renderMenuItem = (item: { title: string, url: string, icon: any }) => {
+    const isItemActive = isActive(item.url);
+    
+    const linkContent = (
+      <NavLink to={item.url} end className={getNavCls}>
+        <item.icon className={getIconCls(isItemActive)} />
+        <span>{collapsed ? "" : item.title}</span>
+      </NavLink>
+    );
+    
+    // If sidebar is collapsed, wrap menu button in tooltip
+    if (collapsed) {
+      return (
+        <SidebarMenuItem key={item.title}>
+          <SidebarMenuButton asChild>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                {linkContent}
+              </TooltipTrigger>
+              <TooltipContent side="right">
+                {item.title}
+              </TooltipContent>
+            </Tooltip>
+          </SidebarMenuButton>
+        </SidebarMenuItem>
+      );
+    }
+    
+    // Otherwise render without tooltip
+    return (
+      <SidebarMenuItem key={item.title}>
+        <SidebarMenuButton asChild>
+          {linkContent}
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+    );
+  };
 
   return (
     <Sidebar
@@ -79,19 +123,9 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {mainItems.map((item) => {
-                const isItemActive = isActive(item.url);
-                return (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <NavLink to={item.url} end className={getNavCls}>
-                        <item.icon className={getIconCls(isItemActive)} />
-                        <span>{collapsed ? "" : item.title}</span>
-                      </NavLink>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                );
-              })}
+              <TooltipProvider>
+                {mainItems.map(renderMenuItem)}
+              </TooltipProvider>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -100,19 +134,9 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {managementItems.map((item) => {
-                const isItemActive = isActive(item.url);
-                return (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <NavLink to={item.url} end className={getNavCls}>
-                        <item.icon className={getIconCls(isItemActive)} />
-                        <span>{collapsed ? "" : item.title}</span>
-                      </NavLink>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                );
-              })}
+              <TooltipProvider>
+                {managementItems.map(renderMenuItem)}
+              </TooltipProvider>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
