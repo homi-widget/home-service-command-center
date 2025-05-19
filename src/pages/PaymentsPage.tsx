@@ -4,49 +4,110 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { CreditCard, DollarSign, ReceiptText, Settings, CirclePlus } from "lucide-react";
+import { DateTimeDisplay } from "@/components/DateTimeDisplay";
 
 const PaymentsPage = () => {
+  // Sample payments data
+  const transactions = [
+    {
+      client: "John Doe",
+      service: "Service de Plomberie",
+      date: "2025-05-17T10:30:00",
+      amount: 180.00,
+      status: "Payé"
+    },
+    {
+      client: "Sarah Johnson",
+      service: "Consultation Initiale",
+      date: "2025-05-16T14:15:00",
+      amount: 75.00,
+      status: "Payé"
+    },
+    {
+      client: "Robert Davis",
+      service: "Service de Maintenance",
+      date: "2025-05-15T09:00:00",
+      amount: 220.00,
+      status: "Payé"
+    },
+    {
+      client: "Emma Wilson",
+      service: "Service Urgent",
+      date: "2025-05-14T17:45:00",
+      amount: 350.00,
+      status: "En Attente"
+    },
+    {
+      client: "Michael Brown",
+      service: "Inspection Régulière",
+      date: "2025-05-13T11:30:00",
+      amount: 120.00,
+      status: "Payé"
+    },
+    {
+      client: "Jessica Taylor",
+      service: "Réparation Système",
+      date: "2025-05-12T13:00:00",
+      amount: 280.00,
+      status: "Payé"
+    },
+    {
+      client: "William Anderson",
+      service: "Service Urgent",
+      date: "2025-05-10T08:15:00",
+      amount: 320.00,
+      status: "Payé"
+    },
+    {
+      client: "David Wilson",
+      service: "Service de Maintenance",
+      date: "2025-05-08T15:30:00",
+      amount: 190.00,
+      status: "En Attente"
+    }
+  ];
+
   return (
     <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6">Payments</h1>
+      <h1 className="text-3xl font-bold mb-6">Paiements</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Total Revenue
+              Revenu Total
             </CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">$8,459.00</div>
-            <p className="text-xs text-muted-foreground mt-1">+12% from last month</p>
+            <div className="text-2xl font-bold">8.459,00 €</div>
+            <p className="text-xs text-muted-foreground mt-1">+12% par rapport au mois dernier</p>
           </CardContent>
         </Card>
         
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Pending Payments
+              Paiements en Attente
             </CardTitle>
             <ReceiptText className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">3</div>
-            <p className="text-xs text-muted-foreground mt-1">$450.00 total</p>
+            <p className="text-xs text-muted-foreground mt-1">450,00 € au total</p>
           </CardContent>
         </Card>
         
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">
-              Payment Methods
+              Moyens de Paiement
             </CardTitle>
             <CreditCard className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">4</div>
-            <p className="text-xs text-muted-foreground mt-1">Active payment options</p>
+            <p className="text-xs text-muted-foreground mt-1">Options de paiement actives</p>
           </CardContent>
         </Card>
       </div>
@@ -54,15 +115,15 @@ const PaymentsPage = () => {
       <Tabs defaultValue="transactions">
         <TabsList>
           <TabsTrigger value="transactions">Transactions</TabsTrigger>
-          <TabsTrigger value="payment-methods">Payment Methods</TabsTrigger>
-          <TabsTrigger value="settings">Settings</TabsTrigger>
+          <TabsTrigger value="payment-methods">Moyens de Paiement</TabsTrigger>
+          <TabsTrigger value="settings">Paramètres</TabsTrigger>
         </TabsList>
         
         <TabsContent value="transactions" className="mt-6">
           <Card>
             <CardHeader>
-              <CardTitle>Recent Transactions</CardTitle>
-              <CardDescription>Payments received in the last 30 days</CardDescription>
+              <CardTitle>Transactions Récentes</CardTitle>
+              <CardDescription>Paiements reçus dans les 30 derniers jours</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="overflow-x-auto">
@@ -72,76 +133,21 @@ const PaymentsPage = () => {
                       <th className="pb-2 font-medium">Client</th>
                       <th className="pb-2 font-medium">Service</th>
                       <th className="pb-2 font-medium">Date</th>
-                      <th className="pb-2 font-medium text-right">Amount</th>
-                      <th className="pb-2 font-medium text-right">Status</th>
+                      <th className="pb-2 font-medium text-right">Montant</th>
+                      <th className="pb-2 font-medium text-right">Statut</th>
                     </tr>
                   </thead>
                   <tbody className="text-sm">
-                    {[
-                      {
-                        client: "John Doe",
-                        service: "Plumbing Service",
-                        date: "May 17, 2025",
-                        amount: 180.00,
-                        status: "Paid"
-                      },
-                      {
-                        client: "Sarah Johnson",
-                        service: "Initial Consultation",
-                        date: "May 16, 2025",
-                        amount: 75.00,
-                        status: "Paid"
-                      },
-                      {
-                        client: "Robert Davis",
-                        service: "Maintenance Service",
-                        date: "May 15, 2025",
-                        amount: 220.00,
-                        status: "Paid"
-                      },
-                      {
-                        client: "Emma Wilson",
-                        service: "Emergency Service",
-                        date: "May 14, 2025",
-                        amount: 350.00,
-                        status: "Pending"
-                      },
-                      {
-                        client: "Michael Brown",
-                        service: "Regular Inspection",
-                        date: "May 13, 2025",
-                        amount: 120.00,
-                        status: "Paid"
-                      },
-                      {
-                        client: "Jessica Taylor",
-                        service: "System Repair",
-                        date: "May 12, 2025",
-                        amount: 280.00,
-                        status: "Paid"
-                      },
-                      {
-                        client: "William Anderson",
-                        service: "Emergency Service",
-                        date: "May 10, 2025",
-                        amount: 320.00,
-                        status: "Paid"
-                      },
-                      {
-                        client: "David Wilson",
-                        service: "Maintenance Service",
-                        date: "May 8, 2025",
-                        amount: 190.00,
-                        status: "Pending"
-                      }
-                    ].map((payment, index) => (
+                    {transactions.map((payment, index) => (
                       <tr key={index} className="border-b last:border-0">
                         <td className="py-3">{payment.client}</td>
                         <td className="py-3">{payment.service}</td>
-                        <td className="py-3">{payment.date}</td>
-                        <td className="py-3 text-right">${payment.amount.toFixed(2)}</td>
+                        <td className="py-3">
+                          <DateTimeDisplay date={payment.date} />
+                        </td>
+                        <td className="py-3 text-right">{payment.amount.toFixed(2)} €</td>
                         <td className="py-3 text-right">
-                          {payment.status === "Paid" ? (
+                          {payment.status === "Payé" ? (
                             <span className="inline-block px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
                               {payment.status}
                             </span>
@@ -158,8 +164,8 @@ const PaymentsPage = () => {
               </div>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <Button variant="outline">Download CSV</Button>
-              <Button variant="outline">View All</Button>
+              <Button variant="outline">Télécharger CSV</Button>
+              <Button variant="outline">Voir Tout</Button>
             </CardFooter>
           </Card>
         </TabsContent>
@@ -243,45 +249,45 @@ const PaymentsPage = () => {
         <TabsContent value="settings" className="mt-6">
           <Card>
             <CardHeader>
-              <CardTitle>Payment Settings</CardTitle>
-              <CardDescription>Configure payment preferences</CardDescription>
+              <CardTitle>Paramètres de Paiement</CardTitle>
+              <CardDescription>Configurer les préférences de paiement</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               <div>
-                <h3 className="font-medium mb-2">Currency</h3>
+                <h3 className="font-medium mb-2">Devise</h3>
                 <div className="flex gap-2">
-                  <Button variant="outline" className="border-brand-blue bg-brand-blue/5">USD ($)</Button>
-                  <Button variant="outline">EUR (€)</Button>
+                  <Button variant="outline" className="border-brand-blue bg-brand-blue/5">EUR (€)</Button>
+                  <Button variant="outline">USD ($)</Button>
                   <Button variant="outline">GBP (£)</Button>
                   <Button variant="outline">CAD ($)</Button>
                 </div>
               </div>
               
               <div>
-                <h3 className="font-medium mb-2">Invoice Settings</h3>
+                <h3 className="font-medium mb-2">Paramètres de Facturation</h3>
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="font-medium">Automatic Invoicing</h4>
-                      <p className="text-sm text-muted-foreground">Send invoices automatically when services are completed</p>
+                      <h4 className="font-medium">Facturation Automatique</h4>
+                      <p className="text-sm text-muted-foreground">Envoyer les factures automatiquement lorsque les services sont terminés</p>
                     </div>
-                    <Switch checked={true} />
+                    <Switch defaultChecked={true} />
                   </div>
                   
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="font-medium">Payment Reminders</h4>
-                      <p className="text-sm text-muted-foreground">Send reminders for unpaid invoices</p>
+                      <h4 className="font-medium">Rappels de Paiement</h4>
+                      <p className="text-sm text-muted-foreground">Envoyer des rappels pour les factures impayées</p>
                     </div>
-                    <Switch checked={true} />
+                    <Switch defaultChecked={true} />
                   </div>
                   
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="font-medium">Receipt Generation</h4>
-                      <p className="text-sm text-muted-foreground">Generate receipts automatically after payment</p>
+                      <h4 className="font-medium">Génération de Reçus</h4>
+                      <p className="text-sm text-muted-foreground">Générer des reçus automatiquement après le paiement</p>
                     </div>
-                    <Switch checked={true} />
+                    <Switch defaultChecked={true} />
                   </div>
                 </div>
               </div>
@@ -289,7 +295,7 @@ const PaymentsPage = () => {
             <CardFooter>
               <Button className="gap-2">
                 <Settings className="h-4 w-4" />
-                Save Settings
+                Enregistrer les Paramètres
               </Button>
             </CardFooter>
           </Card>
