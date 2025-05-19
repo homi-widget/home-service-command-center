@@ -69,11 +69,6 @@ export function AppSidebar() {
       <SidebarContent>
         {/* Main navigation group */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-sidebar-foreground/70 opacity-0">
-            {/* Empty label to maintain spacing */}
-            &nbsp;
-          </SidebarGroupLabel>
-
           <SidebarGroupContent>
             <SidebarMenu>
               {mainItems.map((item) => (
@@ -92,11 +87,6 @@ export function AppSidebar() {
         
         {/* Management navigation group */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-sidebar-foreground/70 opacity-0">
-            {/* Empty label to maintain spacing */}
-            &nbsp;
-          </SidebarGroupLabel>
-
           <SidebarGroupContent>
             <SidebarMenu>
               {managementItems.map((item) => (
