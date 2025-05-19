@@ -45,10 +45,10 @@ export function ClientCard({ name, email, phone, address, avatarUrl }: ClientPro
       <div className="flex justify-between">
         <Button variant="outline" size="sm" className="w-full mr-2">
           <Calendar className="h-4 w-4 mr-2" />
-          Schedule
+          Planifier
         </Button>
         <Button size="sm" className="w-full">
-          View Profile
+          Voir Profil
         </Button>
       </div>
     </div>

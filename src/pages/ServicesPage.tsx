@@ -6,27 +6,28 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Plus } from "lucide-react";
 import { ServiceCard } from "@/components/Services/ServiceCard";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const ServicesPage = () => {
-  // Sample services categorized
+  // Sample services categorized with urgency levels
   const serviceCategories = {
-    main: [
-      { title: '15 Minutes Meeting', duration: '15 min', price: 0, color: '#1a73e8' },
-      { title: '30 Minutes Meeting', duration: '30 min', price: 0, color: '#1a73e8' },
-      { title: '1 Hour Meeting', duration: '60 min', price: 0, color: '#1a73e8' },
+    consultation: [
+      { title: 'Réunion 15 Minutes', duration: '15 min', price: 0, urgency: "low" as const },
+      { title: 'Réunion 30 Minutes', duration: '30 min', price: 0, urgency: "low" as const },
+      { title: 'Réunion 60 Minutes', duration: '60 min', price: 0, urgency: "low" as const },
     ],
     standard: [
-      { title: 'Basic Service', duration: '60 min', price: 75, color: '#1a73e8' },
-      { title: 'Standard Service', duration: '90 min', price: 120, color: '#fbbc04' },
-      { title: 'Premium Service', duration: '120 min', price: 180, color: '#ea4335' },
+      { title: 'Service Standard', duration: '60 min', price: 75, urgency: "low" as const },
+      { title: 'Service Avancé', duration: '90 min', price: 120, urgency: "medium" as const },
+      { title: 'Service Premium', duration: '120 min', price: 180, urgency: "medium" as const },
     ],
     emergency: [
-      { title: 'Emergency Service', duration: '60 min', price: 150, color: '#ea4335' },
-      { title: 'After-Hours Service', duration: '90 min', price: 200, color: '#ea4335' },
+      { title: 'Intervention Urgente', duration: '60 min', price: 150, urgency: "high" as const },
+      { title: 'Intervention Hors Horaires', duration: '90 min', price: 200, urgency: "high" as const },
     ],
     maintenance: [
-      { title: 'Routine Maintenance', duration: '45 min', price: 60, color: '#34a853' },
-      { title: 'System Inspection', duration: '30 min', price: 40, color: '#34a853' },
+      { title: 'Maintenance Régulière', duration: '45 min', price: 60, urgency: "low" as const },
+      { title: 'Inspection Système', duration: '30 min', price: 40, urgency: "low" as const },
     ]
   };
 
@@ -39,40 +40,40 @@ const ServicesPage = () => {
           <DialogTrigger asChild>
             <Button>
               <Plus className="w-4 h-4 mr-2" />
-              Add Service
+              Ajouter Service
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <DialogHeader>
-              <DialogTitle>Add Service</DialogTitle>
+              <DialogTitle>Ajouter Service</DialogTitle>
               <DialogDescription>
-                Create a new service that your clients can book.
+                Créez un nouveau service que vos clients pourront réserver.
               </DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="title" className="text-right">
-                  Title
+                  Titre
                 </Label>
                 <Input
                   id="title"
-                  placeholder="Service name"
+                  placeholder="Nom du service"
                   className="col-span-3"
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="duration" className="text-right">
-                  Duration
+                  Durée
                 </Label>
                 <Input
                   id="duration"
-                  placeholder="e.g., 60 min"
+                  placeholder="ex., 60 min"
                   className="col-span-3"
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="price" className="text-right">
-                  Price
+                  Prix
                 </Label>
                 <Input
                   id="price"
@@ -87,23 +88,38 @@ const ServicesPage = () => {
                 </Label>
                 <Input
                   id="description"
-                  placeholder="Service description"
+                  placeholder="Description du service"
                   className="col-span-3"
                 />
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="category" className="text-right">
-                  Category
+                  Catégorie
                 </Label>
                 <Input
                   id="category"
-                  placeholder="Service category"
+                  placeholder="Catégorie de service"
                   className="col-span-3"
                 />
               </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="urgency" className="text-right">
+                  Niveau d'urgence
+                </Label>
+                <Select defaultValue="low">
+                  <SelectTrigger className="col-span-3">
+                    <SelectValue placeholder="Sélectionner un niveau d'urgence" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="high">Haute</SelectItem>
+                    <SelectItem value="medium">Moyenne</SelectItem>
+                    <SelectItem value="low">Basse</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
             <DialogFooter>
-              <Button type="submit">Add Service</Button>
+              <Button type="submit">Ajouter Service</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -111,34 +127,34 @@ const ServicesPage = () => {
       
       <Tabs defaultValue="all">
         <TabsList>
-          <TabsTrigger value="all">All Services</TabsTrigger>
-          <TabsTrigger value="meetings">Consultation</TabsTrigger>
+          <TabsTrigger value="all">Tous les Services</TabsTrigger>
+          <TabsTrigger value="consultation">Consultation</TabsTrigger>
           <TabsTrigger value="standard">Standard</TabsTrigger>
-          <TabsTrigger value="emergency">Emergency</TabsTrigger>
+          <TabsTrigger value="emergency">Urgence</TabsTrigger>
           <TabsTrigger value="maintenance">Maintenance</TabsTrigger>
         </TabsList>
         <TabsContent value="all" className="mt-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {[...serviceCategories.main, ...serviceCategories.standard, ...serviceCategories.emergency, ...serviceCategories.maintenance].map((service, index) => (
+            {[...serviceCategories.consultation, ...serviceCategories.standard, ...serviceCategories.emergency, ...serviceCategories.maintenance].map((service, index) => (
               <ServiceCard
                 key={index}
                 title={service.title}
                 duration={service.duration}
                 price={service.price}
-                color={service.color}
+                urgency={service.urgency}
               />
             ))}
           </div>
         </TabsContent>
-        <TabsContent value="meetings" className="mt-6">
+        <TabsContent value="consultation" className="mt-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {serviceCategories.main.map((service, index) => (
+            {serviceCategories.consultation.map((service, index) => (
               <ServiceCard
                 key={index}
                 title={service.title}
                 duration={service.duration}
                 price={service.price}
-                color="#1a73e8"
+                urgency={service.urgency}
               />
             ))}
           </div>
@@ -151,7 +167,7 @@ const ServicesPage = () => {
                 title={service.title}
                 duration={service.duration}
                 price={service.price}
-                color={service.color}
+                urgency={service.urgency}
               />
             ))}
           </div>
@@ -164,7 +180,7 @@ const ServicesPage = () => {
                 title={service.title}
                 duration={service.duration}
                 price={service.price}
-                color={service.color}
+                urgency={service.urgency}
               />
             ))}
           </div>
@@ -177,7 +193,7 @@ const ServicesPage = () => {
                 title={service.title}
                 duration={service.duration}
                 price={service.price}
-                color={service.color}
+                urgency={service.urgency}
               />
             ))}
           </div>

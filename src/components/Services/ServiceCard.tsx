@@ -3,15 +3,36 @@ import { Clock, Edit } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useUserPreferences } from "@/context/UserPreferencesContext";
 
 interface ServiceProps {
   title: string;
   duration: string;
   price: number;
   color?: string;
+  urgency?: "high" | "medium" | "low";
 }
 
-export function ServiceCard({ title, duration, price, color = "#1a73e8" }: ServiceProps) {
+export function ServiceCard({ title, duration, price, color = "#1a73e8", urgency = "low" }: ServiceProps) {
+  const { preferences } = useUserPreferences();
+  
+  // Map urgency levels to colors and French labels
+  const urgencyMap = {
+    high: { color: "#ea384c", label: "Haute" },
+    medium: { color: "#F97316", label: "Moyenne" },
+    low: { color: "#34a853", label: "Basse" }
+  };
+  
+  // Get color from urgency if provided
+  const badgeColor = urgency ? urgencyMap[urgency].color : color;
+  const urgencyLabel = urgency ? urgencyMap[urgency].label : "";
+
+  // Format price with currency
+  const formattedPrice = new Intl.NumberFormat(preferences.locale, {
+    style: 'currency',
+    currency: preferences.currency
+  }).format(price);
+
   return (
     <Card>
       <CardHeader className="pb-2">
@@ -29,16 +50,20 @@ export function ServiceCard({ title, duration, price, color = "#1a73e8" }: Servi
       
       <CardContent>
         <div className="flex justify-between items-center">
-          <Badge style={{ backgroundColor: color }} variant="secondary">
-            ${price.toFixed(2)}
+          <Badge style={{ backgroundColor: badgeColor }} variant="secondary">
+            {formattedPrice}
           </Badge>
-          <Badge variant="outline">Default</Badge>
+          {urgency && (
+            <Badge variant="outline">
+              Urgence: {urgencyMap[urgency].label}
+            </Badge>
+          )}
         </div>
       </CardContent>
       
       <CardFooter>
         <Button variant="outline" size="sm" className="w-full">
-          Book Service
+          Réserver Intervention
         </Button>
       </CardFooter>
     </Card>

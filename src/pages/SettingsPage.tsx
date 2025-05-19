@@ -1,4 +1,3 @@
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -8,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Upload } from "lucide-react";
-import { useUserPreferences, DateFormat, TimeFormat } from "@/context/UserPreferencesContext";
+import { useUserPreferences, DateFormat, TimeFormat, Currency, Locale } from "@/context/UserPreferencesContext";
 import { toast } from "sonner";
 import { useState } from "react";
 
@@ -49,6 +48,16 @@ const SettingsPage = () => {
   const handleTimezoneChange = (value: string) => {
     updatePreferences({ timezone: value });
     toast.success("Fuseau horaire mis à jour");
+  };
+
+  const handleCurrencyChange = (value: string) => {
+    updatePreferences({ currency: value as Currency });
+    toast.success("Devise mise à jour");
+  };
+
+  const handleLocaleChange = (value: string) => {
+    updatePreferences({ locale: value });
+    toast.success("Format régional mis à jour");
   };
 
   return (
@@ -380,6 +389,50 @@ const SettingsPage = () => {
                         <SelectContent>
                           <SelectItem value="24h">24 heures</SelectItem>
                           <SelectItem value="12h">12 heures (AM/PM)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="currency">Devise</Label>
+                    <div className="w-[250px]">
+                      <Select 
+                        value={preferences.currency} 
+                        onValueChange={handleCurrencyChange}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Sélectionner une devise" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="EUR">Euro (€)</SelectItem>
+                          <SelectItem value="USD">Dollar américain ($)</SelectItem>
+                          <SelectItem value="GBP">Livre sterling (£)</SelectItem>
+                          <SelectItem value="CAD">Dollar canadien (C$)</SelectItem>
+                          <SelectItem value="JPY">Yen japonais (¥)</SelectItem>
+                          <SelectItem value="AUD">Dollar australien (A$)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <Label htmlFor="locale">Format régional</Label>
+                    <div className="w-[250px]">
+                      <Select 
+                        value={preferences.locale} 
+                        onValueChange={handleLocaleChange}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Sélectionner un format régional" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="fr-FR">Français (France)</SelectItem>
+                          <SelectItem value="en-US">Anglais (États-Unis)</SelectItem>
+                          <SelectItem value="en-GB">Anglais (Royaume-Uni)</SelectItem>
+                          <SelectItem value="de-DE">Allemand (Allemagne)</SelectItem>
+                          <SelectItem value="es-ES">Espagnol (Espagne)</SelectItem>
+                          <SelectItem value="it-IT">Italien (Italie)</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>

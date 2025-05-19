@@ -6,14 +6,19 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Save } from "lucide-react";
+import { useUserPreferences } from "@/context/UserPreferencesContext";
 
 const WorkingHoursPage = () => {
+  const { preferences } = useUserPreferences();
+  
   // Time slots from 7 AM to 9 PM
   const startTimeOptions = Array.from({ length: 15 }).map((_, i) => {
     const hour = i + 7;
     return {
       value: `${hour}:00`,
-      label: `${hour > 12 ? hour - 12 : hour}:00 ${hour >= 12 ? 'PM' : 'AM'}`
+      label: preferences.timeFormat === '24h' 
+        ? `${hour}:00` 
+        : `${hour > 12 ? hour - 12 : hour}:00 ${hour >= 12 ? 'PM' : 'AM'}`
     };
   });
   
@@ -21,7 +26,9 @@ const WorkingHoursPage = () => {
     const hour = i + 8;
     return {
       value: `${hour}:00`,
-      label: `${hour > 12 ? hour - 12 : hour}:00 ${hour >= 12 ? 'PM' : 'AM'}`
+      label: preferences.timeFormat === '24h' 
+        ? `${hour}:00` 
+        : `${hour > 12 ? hour - 12 : hour}:00 ${hour >= 12 ? 'PM' : 'AM'}`
     };
   });
   

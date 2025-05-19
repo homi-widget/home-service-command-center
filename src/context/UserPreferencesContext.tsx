@@ -3,11 +3,14 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 
 export type DateFormat = "DD/MM/YYYY" | "MM/DD/YYYY" | "YYYY-MM-DD";
 export type TimeFormat = "24h" | "12h";
+export type Currency = "EUR" | "USD" | "GBP" | "CAD" | "JPY" | "AUD";
 
 interface UserPreferences {
   timezone: string;
   dateFormat: DateFormat;
   timeFormat: TimeFormat;
+  currency: Currency;
+  locale: string;
 }
 
 interface UserPreferencesContextType {
@@ -16,12 +19,15 @@ interface UserPreferencesContextType {
   formatDate: (date: Date | string) => string;
   formatTime: (date: Date | string) => string;
   formatDateTime: (date: Date | string) => string;
+  formatCurrency: (amount: number) => string;
 }
 
 const defaultPreferences: UserPreferences = {
   timezone: "Europe/Paris",
   dateFormat: "DD/MM/YYYY",
   timeFormat: "24h",
+  currency: "EUR",
+  locale: "fr-FR"
 };
 
 const UserPreferencesContext = createContext<UserPreferencesContextType | undefined>(undefined);
@@ -95,13 +101,22 @@ export const UserPreferencesProvider: React.FC<{ children: React.ReactNode }> = 
     return `${formatDate(d)} ${formatTime(d)}`;
   };
 
+  // Fonction pour formater un montant selon la devise
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat(preferences.locale, {
+      style: 'currency',
+      currency: preferences.currency
+    }).format(amount);
+  };
+
   return (
     <UserPreferencesContext.Provider value={{ 
       preferences, 
       updatePreferences,
       formatDate,
       formatTime,
-      formatDateTime
+      formatDateTime,
+      formatCurrency
     }}>
       {children}
     </UserPreferencesContext.Provider>
