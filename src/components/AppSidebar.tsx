@@ -69,7 +69,7 @@ export function AppSidebar() {
       <SidebarContent>
         {/* Main navigation group */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-sidebar-foreground/70">
+          <SidebarGroupLabel className={`text-sidebar-foreground/70 ${collapsed ? "opacity-0" : ""}`}>
             Principal
           </SidebarGroupLabel>
 
@@ -80,7 +80,7 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink to={item.url} end className={getNavCls}>
                       <item.icon className="mr-2 h-5 w-5" />
-                      {!collapsed && <span>{item.title}</span>}
+                      <span className={collapsed ? "opacity-0 w-0 overflow-hidden" : ""}>{item.title}</span>
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -91,7 +91,7 @@ export function AppSidebar() {
         
         {/* Management navigation group */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-sidebar-foreground/70">
+          <SidebarGroupLabel className={`text-sidebar-foreground/70 ${collapsed ? "opacity-0" : ""}`}>
             Gestion
           </SidebarGroupLabel>
 
@@ -102,7 +102,7 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink to={item.url} end className={getNavCls}>
                       <item.icon className="mr-2 h-5 w-5" />
-                      {!collapsed && <span>{item.title}</span>}
+                      <span className={collapsed ? "opacity-0 w-0 overflow-hidden" : ""}>{item.title}</span>
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
