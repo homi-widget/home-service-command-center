@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
@@ -68,8 +69,9 @@ export function AppSidebar() {
       <SidebarContent>
         {/* Main navigation group */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-sidebar-foreground/70">
-            {collapsed ? "" : "Principal"}
+          <SidebarGroupLabel className="text-sidebar-foreground/70 opacity-0">
+            {/* Empty label to maintain spacing */}
+            &nbsp;
           </SidebarGroupLabel>
 
           <SidebarGroupContent>
@@ -90,8 +92,9 @@ export function AppSidebar() {
         
         {/* Management navigation group */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-sidebar-foreground/70">
-            {collapsed ? "" : "Gestion"}
+          <SidebarGroupLabel className="text-sidebar-foreground/70 opacity-0">
+            {/* Empty label to maintain spacing */}
+            &nbsp;
           </SidebarGroupLabel>
 
           <SidebarGroupContent>
