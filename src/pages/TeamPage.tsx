@@ -33,7 +33,7 @@ const TeamPage = () => {
   ];
 
   return (
-    <div className="p-6 w-full">
+    <div className="p-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Équipe</h1>
         
@@ -122,7 +122,7 @@ const TeamPage = () => {
         </Dialog>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {teamMembers.map((member, index) => (
           <TeamMemberCard
             key={index}
@@ -130,7 +130,6 @@ const TeamPage = () => {
             email={member.email}
             phone={member.phone}
             role={member.role}
-            startAddress={member.startAddress}
           />
         ))}
       </div>
