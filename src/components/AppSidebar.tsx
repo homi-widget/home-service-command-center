@@ -1,5 +1,4 @@
 
-import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import {
   Calendar,
@@ -55,21 +54,19 @@ export function AppSidebar() {
 
   return (
     <Sidebar
-      className={collapsed ? "w-14 transition-all" : "w-60 transition-all"}
+      className="w-14 hover:w-60 transition-all duration-300 group"
       collapsible="icon"
     >
       {/* Logo and fallback trigger */}
       <div className="flex items-center justify-between p-4">
-        {!collapsed && (
-          <h2 className="text-xl font-bold text-primary-foreground">ServiceHub</h2>
-        )}
+        <h2 className="text-xl font-bold text-primary-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300 overflow-hidden whitespace-nowrap">ServiceHub</h2>
         <SidebarTrigger className="self-end" />
       </div>
 
       <SidebarContent>
         {/* Main navigation group */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-sidebar-foreground/70">
+          <SidebarGroupLabel className="text-sidebar-foreground/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             Principal
           </SidebarGroupLabel>
 
@@ -79,8 +76,8 @@ export function AppSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink to={item.url} end className={getNavCls}>
-                      <item.icon className="mr-2 h-5 w-5" />
-                      {!collapsed && <span>{item.title}</span>}
+                      <item.icon className="h-5 w-5" />
+                      <span className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 overflow-hidden whitespace-nowrap">{item.title}</span>
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -91,7 +88,7 @@ export function AppSidebar() {
         
         {/* Management navigation group */}
         <SidebarGroup>
-          <SidebarGroupLabel className="text-sidebar-foreground/70">
+          <SidebarGroupLabel className="text-sidebar-foreground/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             Gestion
           </SidebarGroupLabel>
 
@@ -101,8 +98,8 @@ export function AppSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <NavLink to={item.url} end className={getNavCls}>
-                      <item.icon className="mr-2 h-5 w-5" />
-                      {!collapsed && <span>{item.title}</span>}
+                      <item.icon className="h-5 w-5" />
+                      <span className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 overflow-hidden whitespace-nowrap">{item.title}</span>
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -115,22 +112,13 @@ export function AppSidebar() {
       {/* User account section at bottom */}
       <div className="mt-auto p-4">
         <div className="flex items-center gap-2 text-primary-foreground">
-          {!collapsed && (
-            <>
-              <div className="h-8 w-8 rounded-full bg-white text-brand-blue flex items-center justify-center font-bold">
-                A
-              </div>
-              <div>
-                <p className="text-sm font-medium">Admin User</p>
-                <p className="text-xs opacity-70">admin@company.com</p>
-              </div>
-            </>
-          )}
-          {collapsed && (
-            <div className="h-8 w-8 rounded-full bg-white text-brand-blue flex items-center justify-center font-bold">
-              A
-            </div>
-          )}
+          <div className="h-8 w-8 rounded-full bg-white text-brand-blue flex items-center justify-center font-bold shrink-0">
+            A
+          </div>
+          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 overflow-hidden whitespace-nowrap">
+            <p className="text-sm font-medium">Admin User</p>
+            <p className="text-xs opacity-70">admin@company.com</p>
+          </div>
         </div>
       </div>
     </Sidebar>
