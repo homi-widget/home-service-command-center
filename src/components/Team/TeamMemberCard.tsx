@@ -17,7 +17,7 @@ export function TeamMemberCard({ name, email, phone, role, startAddress, avatarU
   const initials = name.split(' ').map(n => n[0]).join('');
   
   return (
-    <div className="team-member-card">
+    <div className="team-member-card p-4 border rounded-lg bg-card shadow-sm flex flex-col md:flex-row items-start md:items-center gap-4 w-full">
       <Avatar className="h-12 w-12">
         <AvatarImage src={avatarUrl} alt={name} />
         <AvatarFallback className="bg-brand-blue text-white">{initials}</AvatarFallback>
@@ -26,6 +26,8 @@ export function TeamMemberCard({ name, email, phone, role, startAddress, avatarU
       <div className="flex-1">
         <h3 className="font-medium">{name}</h3>
         <p className="text-sm text-muted-foreground">{role}</p>
+        <p className="text-sm">{email}</p>
+        <p className="text-sm">{phone}</p>
         {startAddress && (
           <p className="text-xs text-muted-foreground flex items-center mt-1">
             <MapPin className="h-3 w-3 mr-1" /> {startAddress}
